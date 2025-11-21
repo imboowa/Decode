@@ -1,0 +1,80 @@
+// Sum of first N numbers
+//set x 5
+//set y 0
+//when x
+//add y y x
+//sub x x 1
+//end
+//printr y
+
+// Multiplication using only addition
+//set x 4
+//set y 3
+//set z 0
+//when y
+//add z z x
+//sub y y 1
+//end
+//printr z
+
+// Factorial of a number
+//set x 7
+//set e 1
+//when x
+//mul e e x
+//sub x x 1
+//end
+//printr e
+
+// Count even and odd numbers between 1 and n
+//set e 0
+//set o 0
+//set x 5
+//set c 0
+//set a 0
+//set b 0
+//when x
+//div c x 2
+//mul a c 2
+//sub b x a
+//if b 1
+//add o o 1
+//printr x
+//printr Is Odd
+//done
+//if b 0
+//add e e 1
+//printr x
+//printr Is Even
+//done
+//sub x x 1
+//end
+//printr e
+//printr o
+
+// Sum of all even numbers between X and Y
+//set x 1
+//set y 10
+//set z 0
+//set a 0
+//set b 0
+//set c 0
+//set d 0
+//when z
+//div b y 2
+//mul c b 2
+//sub d y c
+//if d 0
+//add a a y
+//done
+//sub z y x
+//sub y y 1
+//end
+//printr a
+
+// Print a range
+//set x 3
+//when x
+//printr x
+//sub x x 1
+//end

@@ -1,0 +1,58 @@
+// Division using subtraction on only divisible numbers
+//set x 90
+//set y 10
+//set z 0
+//when x
+//add z z 1
+//sub x x y
+//end
+//printr z
+
+// Exponentiation using loops
+//set x 8
+//set y 2
+//set z 1
+//when y
+//mul z z x
+//sub y y 1
+//end
+//printr z
+
+// Fibonacci
+//set x 0
+//set y 1
+//set z 0
+//set a 10
+//when a
+//add z x y
+//set x y
+//set y z
+//printr x
+//sub a a 1
+//end
+
+// Decimal to binary LSB to MSB
+//set x 2
+//set y 0
+//set z 0
+//set a 0
+//when x
+//div y x 2
+//mul z y 2
+//sub a x z
+//printr a
+//set x y
+//end
+
+// Reverse a number
+//set x 50313
+//set y 0
+//set z 0
+//set a 0
+//when x
+//div y x 10
+//mul z y 10
+//sub a x z
+//printr a
+//set x y
+//end

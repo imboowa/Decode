@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		74EA459E2E1EB26700657F30 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 74EA459D2E1EB25F00657F30 /* Makefile */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		74EA45892E1E9ABA00657F30 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,12 +24,28 @@
 
 /* Begin PBXFileReference section */
 		74EA458B2E1E9ABA00657F30 /* Decode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Decode; sourceTree = BUILT_PRODUCTS_DIR; };
+		74EA459D2E1EB25F00657F30 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		74EA458D2E1E9ABA00657F30 /* Decode */ = {
+		749089142E95BCDA00D8DD2B /* main */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Decode;
+			path = main;
+			sourceTree = "<group>";
+		};
+		74EA45952E1E9B0600657F30 /* objs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = objs;
+			sourceTree = "<group>";
+		};
+		74EA45962E1E9B0E00657F30 /* includes */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = includes;
+			sourceTree = "<group>";
+		};
+		74EA45972E1E9B1500657F30 /* bin */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = bin;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -44,7 +64,11 @@
 		74EA45822E1E9ABA00657F30 = {
 			isa = PBXGroup;
 			children = (
-				74EA458D2E1E9ABA00657F30 /* Decode */,
+				749089142E95BCDA00D8DD2B /* main */,
+				74EA459D2E1EB25F00657F30 /* Makefile */,
+				74EA45972E1E9B1500657F30 /* bin */,
+				74EA45962E1E9B0E00657F30 /* includes */,
+				74EA45952E1E9B0600657F30 /* objs */,
 				74EA458C2E1E9ABA00657F30 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,7 +97,10 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				74EA458D2E1E9ABA00657F30 /* Decode */,
+				749089142E95BCDA00D8DD2B /* main */,
+				74EA45952E1E9B0600657F30 /* objs */,
+				74EA45962E1E9B0E00657F30 /* includes */,
+				74EA45972E1E9B1500657F30 /* bin */,
 			);
 			name = Decode;
 			packageProductDependencies = (
@@ -89,7 +116,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					74EA458A2E1E9ABA00657F30 = {
 						CreatedOnToolsVersion = 16.4;
@@ -120,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74EA459E2E1EB26700657F30 /* Makefile in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +188,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -184,6 +213,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 			};
 			name = Debug;
 		};
@@ -221,6 +251,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -238,6 +269,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 			};
 			name = Release;
 		};
@@ -245,6 +277,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -253,6 +286,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
