@@ -1,5 +1,5 @@
 ## Decode: Decode ##
-This is a project that I ctook up after failing to understand ARM Assembly from a course at Low Level Academy. I took this course a few months ago and gained the true knowledge of how computers work under the hood. I also had Python and C knowledge so I did a project in Python and then took C to make a simple semi-programming language that looked like Assembly.
+This is a project that I took up after failing to understand ARM Assembly from a course at Low Level Academy. I took this ARM Assembly course a few months ago and gained the true knowledge of how computers work under the hood but did not fully understand well and still went on to do this project in order to see what to make of my small knowledge. I also had Python and C knowledge so I did a project in Python and then took C to make a simple semi-programming language that looked like Assembly. I wanted to add something to my Python project and unite my new Assembly skills with C and came up with this idea.
 
 ## Dive Into ##
 **About**
@@ -11,7 +11,7 @@ Decode is a semi-programming language that I have created and tested on simple m
 **Features**
 1. Verifies if file is a .ggh file
 2. Executes code line by line
-3. Reads code and arranges it in memeory to attain 0(1) in execution, random access, and jump to index
+3. Reads code and arranges it in memory to attain 0(1) in execution, random access, and jump to index
 4. printr: prints a variable value or sentence on screen
 5. set: initializes variables to a value
 6. //: for comments
