@@ -8,6 +8,12 @@
 
 int checkFile(char *fileName, char *realExtension)
 {
+    // Checking For "."
+    if (strcspn(fileName, ".") == strlen(fileName))
+    {
+        return ERROR;
+    }
+    // Validate Filename
     strtok(fileName, ".");
     char *extension = strtok(NULL, ".");
     
@@ -33,7 +39,7 @@ int openFile(char *filepath)
     return ERROR;
 }
 
-void mathOperations(char *operation, struct Variable *vars, int *varsCount, char *tempResult, char *tempVar1, char *tempVar2)
+void mathOperations(char *operation, struct Variable *vars, int *varsCount, char *tempResult, char *tempVar1, char *tempVar2, struct ErrorFlags *error_flagger)
 {
     // Temporary Buffer For Storage Of Answer
     char buffer[BUFFER_LENGTH];
@@ -58,6 +64,13 @@ void mathOperations(char *operation, struct Variable *vars, int *varsCount, char
             }
         }
     }
+    else
+    {
+        //printf("Execution Error: Out Of Bounds\n");
+        error_flagger->OUT_OF_BOUNDS = 1;
+        error_flagger->NO_ERRORS = 1;
+        return;
+    }
     int result = 0;
     // Do Operation
     if (strcmp(operation, "add") == 0)
@@ -77,7 +90,9 @@ void mathOperations(char *operation, struct Variable *vars, int *varsCount, char
         // Is It Dividion By Zero
         if (atoi(var2) == 0)
         {
-            printf("Division Error: Cannot divide by zero\n");
+            //printf("Division Error: Cannot divide by zero\n");
+            error_flagger->DIVISION_BY_ZERO = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         result = atoi(var1) / atoi(var2);
@@ -98,6 +113,13 @@ void mathOperations(char *operation, struct Variable *vars, int *varsCount, char
             }
         }
     }
+    else
+    {
+        //printf("Execution Error: Out Of Bounds\n");
+        error_flagger->OUT_OF_BOUNDS = 1;
+        error_flagger->NO_ERRORS = 1;
+        return;
+    }
     // Check If It Is Safe To Add A Variable
     if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
     {
@@ -110,11 +132,13 @@ void mathOperations(char *operation, struct Variable *vars, int *varsCount, char
     }
     else
     {
-        printf("Varaible Error: Variable Array Full\n");
+        //printf("Varaible Error: Variable Array Full\n");
+        error_flagger->VARIABLE_ARRAY_FULL = 1;
+        error_flagger->NO_ERRORS = 1;
     }
 }
 
-void setVariable(struct Variable *vars, int *varsCount, char *tempArg1, char *tempArg2)
+void setVariable(struct Variable *vars, int *varsCount, char *tempArg1, char *tempArg2, struct ErrorFlags *error_flagger)
 {
     // Bounds Checking
     if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
@@ -152,9 +176,16 @@ void setVariable(struct Variable *vars, int *varsCount, char *tempArg1, char *te
             }
         }
     }
+    else
+    {
+        //printf("Execution Error: Out Of Bounds\n");
+        error_flagger->OUT_OF_BOUNDS = 1;
+        error_flagger->NO_ERRORS = 1;
+        return;
+    }
     if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
     {
-        // All Set Then Add The Varible And Value To vars
+        // All Set Then Add The Variable And Value To vars
         strncpy(vars[(*varsCount)].name, tempArg1, sizeof(vars[(*varsCount)].name) - 1);
         strncpy(vars[(*varsCount)].value, tempArg2, sizeof(vars[(*varsCount)].value) - 1);
         vars[(*varsCount)].name[sizeof(vars[(*varsCount)].name) - 1] = '\0';
@@ -163,11 +194,13 @@ void setVariable(struct Variable *vars, int *varsCount, char *tempArg1, char *te
     }
     else
     {
-        printf("Variable Error: Variable Array Full\n");
+        //printf("Variable Error: Variable Array Full\n");
+        error_flagger->VARIABLE_ARRAY_FULL = 1;
+        error_flagger->NO_ERRORS = 1;
     }
 }
 
-void printr(struct Variable *vars, int *varsCount, char *tempArg1)
+void printr(struct Variable *vars, int *varsCount, char *tempArg1, struct ErrorFlags *error_flagger)
 {
     // Bounds Checking
     if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
@@ -184,10 +217,17 @@ void printr(struct Variable *vars, int *varsCount, char *tempArg1)
         printf("%s\n", tempArg1);
         return;
     }
+    else
+    {
+        //printf("Execution Error: Out Of Bounds\n");
+        error_flagger->OUT_OF_BOUNDS = 1;
+        error_flagger->NO_ERRORS = 1;
+    }
 }
 
-void executeLine(char *content, struct Variable *vars, int *varsCount, int *execCounter, int *tempIndex, char *tempValue, int *IF_FLAG)
+void executeLine(char *content, struct Variable *vars, int *varsCount, int *execCounter, int *tempIndex, char *tempValue, int *IF_FLAG, struct ErrorFlags *error_flagger)
 {
+    // Error Checking
     if (content == NULL || strlen(content) == 0)
     {
         return;
@@ -207,10 +247,12 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         char *tempArg1 = strtok(NULL, "");
         if (tempArg1 == NULL)
         {
-            printf("Syntax Error: Missing argument after printr\n");
+            //printf("Syntax Error: Missing argument after printr\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
-        printr(vars, varsCount, tempArg1);
+        printr(vars, varsCount, tempArg1, error_flagger);
     }
     // Initializing Or Setting Variables
     else if (strcmp(tempCommand, "set") == 0 && (*IF_FLAG) == 1)
@@ -219,15 +261,19 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         char *tempArg2 = strtok(NULL, " ");
         if (tempArg1 == NULL)
         {
-            printf("Syntax Error: Missing variable name after set\n");
+            //printf("Syntax Error: Missing variable name after set\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempArg2 == NULL)
         {
-            printf("Syntax Error: Missing argument value after set\n");
+            //printf("Syntax Error: Missing argument value after set\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
-        setVariable(vars, varsCount, tempArg1, tempArg2);
+        setVariable(vars, varsCount, tempArg1, tempArg2, error_flagger);
     }
     // Comments
     else if (strncmp(tempCommand, "//", 2) == 0 && (*IF_FLAG) == 1)
@@ -242,20 +288,26 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         char *tempNum2 = strtok(NULL, " ");
         if (tempResultVar == NULL)
         {
-            printf("Add Error: No destination for add result\n");
+            //printf("Add Error: No destination for add result\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempNum1 == NULL)
         {
-            printf("Add Error: Missing num 1 after add\n");
+            //printf("Add Error: Missing num 1 after add\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempNum2 == NULL)
         {
-            printf("Add Error: Missing num 2 after add\n");
+            //printf("Add Error: Missing num 2 after add\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
-        mathOperations(tempCommand, vars, varsCount, tempResultVar, tempNum1, tempNum2);
+        mathOperations(tempCommand, vars, varsCount, tempResultVar, tempNum1, tempNum2, error_flagger);
     }
     else if (strcmp(tempCommand, "sub") == 0 && (*IF_FLAG) == 1)
     {
@@ -265,20 +317,26 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         char *tempVar2 = strtok(NULL, " ");
         if (tempResultVar == NULL)
         {
-            printf("Syntax Error: Missing subtraction destination after sub\n");
+            //printf("Syntax Error: Missing subtraction destination after sub\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempVar1 == NULL)
         {
-            printf("Syntax Error: Missing num 1 in sub arguments\n");
+            //printf("Syntax Error: Missing num 1 in sub arguments\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempVar2 == NULL)
         {
-            printf("Syntax Error: Missing num 2 in sub arguments\n");
+            //printf("Syntax Error: Missing num 2 in sub arguments\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
-        mathOperations(tempCommand, vars, varsCount, tempResultVar, tempVar1, tempVar2);
+        mathOperations(tempCommand, vars, varsCount, tempResultVar, tempVar1, tempVar2, error_flagger);
     }
     else if (strcmp(tempCommand, "mul") == 0 && (*IF_FLAG) == 1)
     {
@@ -288,20 +346,26 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         char *tempVar2 = strtok(NULL, " ");
         if (tempResultVar == NULL)
         {
-            printf("Syntax Error: Missing multiplication destination after mul\n");
+            //printf("Syntax Error: Missing multiplication destination after mul\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempVar1 == NULL)
         {
-            printf("Syntax Error: Missing num 1 in multiplication arguments\n");
+            //printf("Syntax Error: Missing num 1 in multiplication arguments\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempVar2 == NULL)
         {
-            printf("Syntax Error: Missing num 2 in multiplication arguments\n");
+            //printf("Syntax Error: Missing num 2 in multiplication arguments\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
-        mathOperations(tempCommand, vars, varsCount, tempResultVar, tempVar1, tempVar2);
+        mathOperations(tempCommand, vars, varsCount, tempResultVar, tempVar1, tempVar2, error_flagger);
     }
     else if (strcmp(tempCommand, "div") == 0 && (*IF_FLAG) == 1)
     {
@@ -311,20 +375,26 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         char *tempVar2 = strtok(NULL, " ");
         if (tempResultVar == NULL)
         {
-            printf("Syntax Error: Missing division destination after div\n");
+            //printf("Syntax Error: Missing division destination after div\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempVar1 == NULL)
         {
-            printf("Syntax Error: Missing num 1 in division arguments\n");
+            //printf("Syntax Error: Missing num 1 in division arguments\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempVar2 == NULL)
         {
-            printf("Syntax Error: Missing num 2 in division arguments\n");
+            //printf("Syntax Error: Missing num 2 in division arguments\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
-        mathOperations(tempCommand, vars, varsCount, tempResultVar, tempVar1, tempVar2);
+        mathOperations(tempCommand, vars, varsCount, tempResultVar, tempVar1, tempVar2, error_flagger);
     }
     else if (strcmp(tempCommand, "when") == 0 && (*IF_FLAG) == 1)
     {
@@ -332,7 +402,9 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         char *tempCondition = strtok(NULL, " ");
         if (tempCondition == NULL)
         {
-            printf("Syntax Error: Missing condition after when\n");
+            //printf("Syntax Error: Missing condition after when\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         // Save The Condition
@@ -343,9 +415,12 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
     }
     else if (strcmp(tempCommand, "end") == 0 && (*IF_FLAG) == 1)
     {
-        if (tempValue[0] == '\0')
+        // Preventing Incidence Where tempIndex Was Not Set
+        // Due To Not Finding when Hence tempIndex Is 0 And After Subtraction It Is -1
+        // Out Of Bounds Access
+        if (tempValue[0] == '\0' || (*tempIndex) <= 0)
         {
-            printf("Runtime Error: end found without when\n");
+            // Handles Nested Loops Hence No Errors
             return;
         }
         // Bounds Checking
@@ -365,6 +440,13 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
                 }
             }
         }
+        else
+        {
+            //printf("Execution Error: Out Of Bounds\n");
+            error_flagger->OUT_OF_BOUNDS = 1;
+            error_flagger->NO_ERRORS = 1;
+            return;
+        }
         // Is It Just A Number
         if (atoi(tempValue) != 0)
         {
@@ -375,6 +457,8 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
             // The *execCounter Is Controlled In The Main Loop
             // This Code Just Takes Over Sometimes In when Statements
             memset(tempValue, 0, BUFFER_LENGTH);
+            // No Use - Safety
+            (*tempIndex) = 0;
         }
     }
     else if (strcmp(tempCommand, "if") == 0 && (*IF_FLAG) == 1)
@@ -383,12 +467,16 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         char *tempConditionVar2 = strtok(NULL, " ");
         if (tempConditionVar1 == NULL)
         {
-            printf("Syntax Error: Missing condition(s) after if\n");
+            //printf("Syntax Error: Missing condition(s) after if\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         if (tempConditionVar2 == NULL)
         {
-            printf("Syntax Error: Missing condition(s) after if\n");
+            //printf("Syntax Error: Missing condition(s) after if\n");
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
             return;
         }
         // Bounds Checking
@@ -407,6 +495,13 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
                     tempConditionVar2 = vars[i].value;
                 }
             }
+        }
+        else
+        {
+            //printf("Execution Error: Out Of Bounds\n");
+            error_flagger->OUT_OF_BOUNDS = 1;
+            error_flagger->NO_ERRORS = 1;
+            return;
         }
         // If Condition Is Equal Then Set Global Flag To 1 So That Next Code Can Be Run
         if (atoi(tempConditionVar1) == atoi(tempConditionVar2))
@@ -431,7 +526,9 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         // If That Code Could Have Been Executed
         if ((*IF_FLAG) == 1)
         {
-            printf("Unknown command: %s\n", tempCommand);
+            //printf("Unknown command: %s\n", tempCommand);
+            error_flagger->BAD_COMMAND = 1;
+            error_flagger->NO_ERRORS = 1;
         }
     }
 }

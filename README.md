@@ -23,8 +23,7 @@ Decode is a semi-programming language that I have created and tested on simple m
 12. if: to do if statement stuff - done
 
 **Future Prospects**
-1. To integrate it into my DNAGenre project to do math operations on massive data.
-2. To introduce more features like average, mode, median, string operations, standard deviation.
+1. To introduce more features like average, mode, median, string operations, standard deviation.
 
 ## Bugs Found ##
 **comp.c**
