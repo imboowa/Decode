@@ -3,12 +3,14 @@
 #include <string.h>
 #include <fcntl.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 #include "compiler.h"
 
 int checkFile(char *fileName, char *realExtension)
 {
     // Checking For "."
+    // strcspn Returns Length Of String (char *) If "." Not Found
     if (strcspn(fileName, ".") == strlen(fileName))
     {
         return ERROR;
@@ -71,7 +73,37 @@ void mathOperations(char *operation, struct Variable *vars, int *varsCount, char
         error_flagger->NO_ERRORS = 1;
         return;
     }
+    
     int result = 0;
+    
+    // Check If Entire var1 Is An Integer
+    if (is_whole_string_integer(var1) == -1)
+    {
+        error_flagger->ARGUMENT_ERROR = 1;
+        error_flagger->NO_ERRORS = 1;
+        return;
+    }
+    // Check If Entire var2 Is An Integer
+    if (is_whole_string_integer(var2) == -1)
+    {
+        error_flagger->ARGUMENT_ERROR = 1;
+        error_flagger->NO_ERRORS = 1;
+        return;
+    }
+    
+    // Check If Numbers Are Integers And Not 0
+    if (strcmp(var1, "0") != 0 && atoi(var1) == 0)
+    {
+        error_flagger->ARGUMENT_ERROR = 1;
+        error_flagger->NO_ERRORS = 1;
+        return;
+    }
+    if (strcmp(var2, "0") != 0 && atoi(var2) == 0)
+    {
+        error_flagger->ARGUMENT_ERROR = 1;
+        error_flagger->NO_ERRORS = 1;
+        return;
+    }
     // Do Operation
     if (strcmp(operation, "add") == 0)
     {
@@ -210,11 +242,11 @@ void printr(struct Variable *vars, int *varsCount, char *tempArg1, struct ErrorF
         {
             if (strcmp(vars[i].name, tempArg1) == 0)
             {
-                printf("%s\n", vars[i].value);
+                printf("%s", vars[i].value);
                 return;
             }
         }
-        printf("%s\n", tempArg1);
+        printf("%s", tempArg1);
         return;
     }
     else
@@ -225,7 +257,28 @@ void printr(struct Variable *vars, int *varsCount, char *tempArg1, struct ErrorF
     }
 }
 
-void executeLine(char *content, struct Variable *vars, int *varsCount, int *execCounter, int *tempIndex, char *tempValue, int *IF_FLAG, struct ErrorFlags *error_flagger)
+int is_whole_string_integer(char *string)
+{
+    // Error Checking
+    if (string == NULL || *string == '\0')
+        return -1;
+    
+    for (int i = 0; string[i] != '\0'; i++)
+    {
+        // Number Might Be Signed
+        if (i == 0 && string[i] == '-')
+            continue;
+        // Number Might Be Unsigned
+        if (i == 0 && string[i] == '+')
+            continue;
+        // Number Might Be A usual Integer
+        if (!isdigit(string[i]))
+            return -1;
+    }
+    return 0;
+}
+
+void executeLine(char *content, struct Variable *vars, int *varsCount, int *execCounter, int *tempIndex, char *tempValue, int *IF_FLAG, struct ErrorFlags *error_flagger, unsigned int *codeSpan)
 {
     // Error Checking
     if (content == NULL || strlen(content) == 0)
@@ -248,8 +301,12 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         if (tempArg1 == NULL)
         {
             //printf("Syntax Error: Missing argument after printr\n");
-            error_flagger->ARGUMENT_ERROR = 1;
-            error_flagger->NO_ERRORS = 1;
+            //error_flagger->ARGUMENT_ERROR = 1;
+            //error_flagger->NO_ERRORS = 1;
+            
+            // We Want Flexibility Hence Giving User Previledge
+            // To printr Newline If printr Has No Arguments
+            printf("\n");
             return;
         }
         printr(vars, varsCount, tempArg1, error_flagger);
@@ -520,6 +577,34 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
         {
             (*IF_FLAG) = 1;
         }
+    }
+    else if (strcmp(tempCommand, "branch") == 0 && (*IF_FLAG) == 1)
+    {
+        // Helps The User Have Explicit Control Over The Program Counter
+        char *tempUserCounter = strtok(NULL, " ");
+        if (tempUserCounter == NULL)
+        {
+            error_flagger->ARGUMENT_ERROR = 1;
+            error_flagger->NO_ERRORS = 1;
+            return;
+        }
+        int tempCounter = atoi(tempUserCounter);
+        // Check If It Is Safe To Jump To Requested Part Of Code
+        if (tempCounter >= 1 && tempCounter < (*codeSpan))
+        {
+            (*execCounter) = tempCounter - 2;
+        }
+        else
+        {
+            error_flagger->OUT_OF_BOUNDS = 1;
+            error_flagger->NO_ERRORS = 1;
+            return;
+        }
+    }
+    else if (strcmp(tempCommand, "stop") == 0 && (*IF_FLAG) == 1)
+    {
+        // Stops The Program
+        error_flagger->NO_ERRORS = 1;
     }
     else
     {

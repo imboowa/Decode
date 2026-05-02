@@ -64,6 +64,11 @@ int main (int argc, char *argv[])
     // Get Code By Line And Copy That To codeLines
     while (fgets(content, sizeof(content), fp))
     {
+        // Ignore Empty Lines Of Code, Spaces, Tabs, Courage Returns
+        if (content[0] == '\n' || content[0] == '\t' || content[0] == '\r' || content[0] == ' ')
+        {
+            continue;
+        }
         if (currentCodeLine >= 0 && currentCodeLine < (sizeof(codeLines)/sizeof(codeLines[0]) - 1))
         {
             strncpy(codeLines[currentCodeLine], content, sizeof(codeLines[currentCodeLine]) - 1);
@@ -95,14 +100,17 @@ int main (int argc, char *argv[])
     int tempIndex = 0;
     // Program Counter
     int execCounter = 0;
-    while (execCounter >= 0 && execCounter < sizeof(codeLines)/sizeof(codeLines[0]) && codeLines[execCounter][0] != 0 && error_flagger.NO_ERRORS == 0)
+    // Code Span
+    unsigned int codeSpan = sizeof(codeLines)/sizeof(codeLines[0]);
+    
+    while (execCounter >= 0 && execCounter < codeSpan && codeLines[execCounter][0] != 0 && error_flagger.NO_ERRORS == 0)
     {
         // Buffer To Store A Temporary Copy Of Current Line Of Code, Can Be Mutated
         char lineCopy[BUFFER_LENGTH];
         memset(lineCopy, 0, sizeof(lineCopy));
         strncpy(lineCopy, codeLines[execCounter], sizeof(lineCopy) - 1);
         lineCopy[sizeof(lineCopy) - 1] = '\0';
-        executeLine(lineCopy, vars, &varsCount, &execCounter, &tempIndex, tempValue, &IF_FLAG, &error_flagger);
+        executeLine(lineCopy, vars, &varsCount, &execCounter, &tempIndex, tempValue, &IF_FLAG, &error_flagger, &codeSpan);
         execCounter++;
     }
     

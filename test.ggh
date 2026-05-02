@@ -1,0 +1,32 @@
+set z +1
+add z z -1
+set y 45
+
+// printr 1
+// printr
+
+set x 10
+
+// when x
+
+set y 23
+add z z 1
+printr z
+printr
+
+// printr x
+// printr
+// sub x x 1
+// end
+// set a 34
+// printr x
+// printr
+// sub x x 1
+// if x 0
+// stop
+// done
+// branch 5
+// set c 3
+// set f 0
+// div e c f
+// branch 1900

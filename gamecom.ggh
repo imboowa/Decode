@@ -1,0 +1,60 @@
+// Show a TIC-TAC-TOE Board
+// printr  -----------
+// printr
+// printr | T | I | C |
+// printr
+// printr  -----------
+// printr
+// printr | T | A | C |
+// printr
+// printr  -----------
+// printr
+// printr | T | O | E |
+// printr
+// printr  -----------
+// printr
+
+// Show a Face
+// printr                       
+// printr
+// printr       _____________   
+// printr
+// printr      |             |  
+// printr
+// printr      |  ---------  |  
+// printr
+// printr      | / ^ \ / ^ \ |  
+// printr
+// printr      | |    o    | |  
+// printr
+// printr       \|  \___/  |/   
+// printr
+// printr         \_______/     
+// printr
+// printr           |   |       
+// printr
+// printr       ___/_____\___    
+// printr
+// printr      /   _______   \  
+// printr
+// printr     |___| Code  |___| 
+// printr
+// printr   __|___|  Book |___|_
+// printr
+// printr                       
+// printr
+
+// Showing A Triangle
+// set x 17
+// set y x
+// when x
+// printr *
+// sub x x 1
+// end
+// printr
+// sub y y 1
+// set x y
+// if y 0
+// stop
+// done
+// branch 3

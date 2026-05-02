@@ -1,10 +1,10 @@
 ## Decode: Decode ##
-This is a project that I took up after failing to understand ARM Assembly from a course at Low Level Academy. I took this ARM Assembly course a few months ago and gained the true knowledge of how computers work under the hood but did not fully understand well and still went on to do this project in order to see what to make of my small knowledge. I also had Python and C knowledge so I did a project in Python and then took C to make a simple semi-programming language that looked like Assembly. I wanted to add something to my Python project and unite my new Assembly skills with C and came up with this idea.
+This is a project that I took up after failing to understand ARM Assembly from a course at Low Level Academy. This ARM Assembly course gave me the true knowledge of how computers work under the hood but I did not fully understand well and still went on to do this project in order to see what to make of my small knowledge. I also had Python and C knowledge so I did a project in Python and then took C to make a simple semi-programming language that looked like Assembly. I wanted to add something to my Python project and unite my new Assembly skills with C and came up with this idea.
 
 ## Dive Into ##
 **About**
 
-Decode is a semi-programming language that I have created and tested on simple mathematical algorithms like fibonacci, exponentiation, sum of even number between X and Y, and many more. Basically, I took my C knowledge from Low Level Academy course and my simple understanding of ARM Assembly and combined those skills and decided to make a simple programming language that looks somehow like ARM Assembly.
+Decode is a semi-programming language that I have created and tested on simple mathematical algorithms like fibonacci, exponentiation, sum of even number between X and Y, [DNAGenre](https://github.com/imboowa/DNAGenre) and many more. Basically, I took my C knowledge from Low Level Academy course and my simple understanding of ARM Assembly and combined those skills and decided to make a simple programming language that looks somehow like ARM Assembly.
 
 `Note: This project was 35% AI and 65% me`
 
@@ -21,9 +21,9 @@ Decode is a semi-programming language that I have created and tested on simple m
 10. div: to divide two numbers and stores in a variable
 11. when: to do while loop stuff - end
 12. if: to do if statement stuff - done
-
-**Future Prospects**
-1. To introduce more features like average, mode, median, string operations, standard deviation.
+13. Syntax handling: error messages communicate to the user about syntax
+14. branch: to jump to user's requested line of code to resume code execution continuing from that line of code
+15. stop: ends code execution
 
 ## Bugs Found ##
 **comp.c**
@@ -128,13 +128,13 @@ end
 printr y
 ```
 **Walkthrough**
-First, set x equal to 5
-Then, set y equal to 0 - this is our sum variable
-Second, create a while loop that loops as long as x is not 0
-Third, add whatever is in x at the iteration to y
-Fourth, decrement x by 1
-Lastly, signal end of loop and show answer
-**Note: ** end checks if x is 0 but the when does not check x
+First, set x equal to 5\
+Then, set y equal to 0 - this is our sum variable\
+Second, create a while loop that loops as long as x is not 0\
+Third, add whatever is in x at the iteration to y\
+Fourth, decrement x by 1\
+Lastly, signal end of loop and show answer\
+**Note: ** end checks if x is 0 but the when does not check x\
 
 2. `Multiplication using only addition`
 ```
@@ -148,14 +148,14 @@ end
 printr z
 ```
 **Walkthrough**
-First, set x equal to 4
-Then, set y equal to 3
-Then, set z equal to 0 - this is our sum variable
-Second, create a while loop that loops as long as y is not 0
-Third, on every iteration add the multiplicant to z in order to accumulate
-Fourth, decrement the multiplier by 1
-Lastly, signal end of loop and show answer
-**Note: ** end checks if y is 0 but the when does not check y
+First, set x equal to 4\
+Then, set y equal to 3\
+Then, set z equal to 0 - this is our sum variable\
+Second, create a while loop that loops as long as y is not 0\
+Third, on every iteration add the multiplicant to z in order to accumulate\
+Fourth, decrement the multiplier by 1\
+Lastly, signal end of loop and show answer\
+**Note: ** end checks if y is 0 but the when does not check y\
 
 3. `Factorial of a number`
 ```
@@ -168,13 +168,13 @@ end
 printr e
 ```
 **Walkthrough**
-First, set x equal to 7
-Then, set e equal to 1
-Second, create a while loop to loop as long as x is not 0
-Third, multiply the value in e by the value in x and store that into e
-Fourth, decrement x by 1
-Lastly, signal end of loop and show answer
-**Note: ** end checks if x is 0 but the when does not check x
+First, set x equal to 7\
+Then, set e equal to 1\
+Second, create a while loop to loop as long as x is not 0\
+Third, multiply the value in e by the value in x and store that into e\
+Fourth, decrement x by 1\
+Lastly, signal end of loop and show answer\
+**Note: ** end checks if x is 0 but the when does not check x\
 
 4. `Count even and odd numbers between 1 and n`
 ```
@@ -204,20 +204,20 @@ printr e
 printr o
 ```
 **Walkthrough**
-First, set e equal to 0
-Then, set o equal to 0
-Then, set x equal to 5
-Then, set c equal to 0 - carries the first division result in the modulus process
-Then, set a equal to 0 - carries quotient multiplied by 2
-Then, set b equal to 0 - stores remainder
-Second, create a while loop to loop as long as x is not 0
-Then, divide x by 2 and store the result into c
-Then, multiply the value in c by 2 and store result in a
-Then, subtract x from a to get remainder
-Third, if remainder is 1 that is an odd number hence increment the odd counter `o` by 1
-Fourth, if remainder is 0 that is an even number hence increment the even counter `e` by 1
-Fifth, decrement x by 1
-Lastly, signal end of loop and show results
+First, set e equal to 0\
+Then, set o equal to 0\
+Then, set x equal to 5\
+Then, set c equal to 0 - carries the first division result in the modulus process\
+Then, set a equal to 0 - carries quotient multiplied by 2\
+Then, set b equal to 0 - stores remainder\
+Second, create a while loop to loop as long as x is not 0\
+Then, divide x by 2 and store the result into c\
+Then, multiply the value in c by 2 and store result in a\
+Then, subtract x from a to get remainder\
+Third, if remainder is 1 that is an odd number hence increment the odd counter `o` by 1\
+Fourth, if remainder is 0 that is an even number hence increment the even counter `e` by 1\
+Fifth, decrement x by 1\
+Lastly, signal end of loop and show results\
 **Note: ** end checks if x is 0 but the when does not check x
 
 5. `Sum of all even numbers between X and Y`
@@ -242,21 +242,21 @@ end
 printr a
 ```
 **Walkthrough**
-First, set x equal to 1
-Then, set y equal to 10
-Then, set z equal to 0
-Then, set a equal to 0
-Then, set b equal to 0 - stores quotient of current y divided by 2
-Then, set c equal to 0 - stores result of b multiplied by 2
-Then, set d equal to 0 - stores the remainder
-Second, create a while loop that runs as long as z is not 0
-Then, divide current y by 2
-Then, multipy b by 2
-Then, subtract y from b to get the remainder
-Third, if remainder is 0 that is an even number hence increment the even counter `a` by y (that very even number)
-Fourth, decrement y by 1
-Fifth, decrement y by 1
-Lastly, signal end of loop and show results
+First, set x equal to 1\
+Then, set y equal to 10\
+Then, set z equal to 0\
+Then, set a equal to 0\
+Then, set b equal to 0 - stores quotient of current y divided by 2\
+Then, set c equal to 0 - stores result of b multiplied by 2\
+Then, set d equal to 0 - stores the remainder\
+Second, create a while loop that runs as long as z is not 0\
+Then, divide current y by 2\
+Then, multipy b by 2\
+Then, subtract y from b to get the remainder\
+Third, if remainder is 0 that is an even number hence increment the even counter `a` by y (that very even number)\
+Fourth, decrement y by 1\
+Fifth, decrement y by 1\
+Lastly, signal end of loop and show results\
 **Note: ** end checks if z is 0 but the when does not check z
 
 6. `Print a range`
@@ -268,11 +268,11 @@ sub x x 1
 end
 ```
 **Walkthrough**
-First, set x equal to 3
-Second, create a while loop that loops as long as x is not 0
-Then, show result
-Then, decrement x by 1
-Lastly, signal end of loop
+First, set x equal to 3\
+Second, create a while loop that loops as long as x is not 0\
+Then, show result\
+Then, decrement x by 1\
+Lastly, signal end of loop\
 **Note: ** end checks if z is 0 but the when does not check z
 
 
@@ -289,13 +289,13 @@ end
 printr z
 ```
 **Walkthrough**
-First, set x equal to 90
-Then, set y equal to 10
-Then, set z equal to 0 - increments to show the divisions
-Second, create a while loop that loops as long as x is not 0
-Third, add 1 to the value in z
-Fourth, decrement x by 1
-Lastly, signal end of loop and show results
+First, set x equal to 90\
+Then, set y equal to 10\
+Then, set z equal to 0 - increments to show the divisions\
+Second, create a while loop that loops as long as x is not 0\
+Third, add 1 to the value in z\
+Fourth, decrement x by 1\
+Lastly, signal end of loop and show results\
 **Note: ** end checks if x is 0 but the when does not check x
 
 2. `Exponentiation using loops`
@@ -310,13 +310,13 @@ end
 printr z
 ```
 **Walkthrough**
-First, set x equal to 8
-Then, set y equal to 2
-Then, set z equal to 1 - accumulates the multiplication as many times as the power in this case the value of y
-Second, create a while loop that loops as long as y is not 0
-Third, multiply the value in z by the value in x
-Fourth, decrement y by 1
-Lastly, signal end of loop and show results
+First, set x equal to 8\
+Then, set y equal to 2\
+Then, set z equal to 1 - accumulates the multiplication as many times as the power in this case the value of y\
+Second, create a while loop that loops as long as y is not 0\
+Third, multiply the value in z by the value in x\
+Fourth, decrement y by 1\
+Lastly, signal end of loop and show results\
 **Note: ** end checks if y is 0 but the when does not check y
 
 3. `Fibonacci`
@@ -334,15 +334,15 @@ sub a a 1
 end
 ```
 **Walkthrough**
-First, set x equal to 0 - the first number
-Then, set y equal to 1 - the second number
-Then, set z equal to 0 - contains the sum of x and y
-Then, set a equal to 10
-Second, create a while loop that loops as long as a is not 0
-Third, fill z with the sum of x and y
-Fourth, set x to be y
-Fifth, set y to be z
-Lastly, show results and signal end of loop
+First, set x equal to 0 - the first number\
+Then, set y equal to 1 - the second number\
+Then, set z equal to 0 - contains the sum of x and y\
+Then, set a equal to 10\
+Second, create a while loop that loops as long as a is not 0\
+Third, fill z with the sum of x and y\
+Fourth, set x to be y\
+Fifth, set y to be z\
+Lastly, show results and signal end of loop\
 **Note: ** end checks if a is 0 but the when does not check a
 
 4. `Decimal to binary LSB to MSB`
@@ -360,17 +360,17 @@ set x y
 end
 ```
 **Walkthrough**
-First, set x equal to 2 - the number
-Then, set y equal to 0 - stores quotient
-Then, set z equal to 0
-Then, set a equal to 0 - stores remainder
-Second, create a while loop that loops as long as x is not 0
-Then, store quotient into y
-Then, multiply that quotient by 2
-Then, store the remainder into a
-Then, show the remainder
-Then, set x equal to y
-Lastly, signal end of loop
+First, set x equal to 2 - the number\
+Then, set y equal to 0 - stores quotient\
+Then, set z equal to 0\
+Then, set a equal to 0 - stores remainder\
+Second, create a while loop that loops as long as x is not 0\
+Then, store quotient into y\
+Then, multiply that quotient by 2\
+Then, store the remainder into a\
+Then, show the remainder\
+Then, set x equal to y\
+Lastly, signal end of loop\
 **Note: ** end checks if x is 0 but the when does not check x
 
 5. `Reverse a number`
@@ -388,17 +388,17 @@ set x y
 end
 ```
 **Walkthrough**
-First, set x equal to 50313
-Then, set y equal to 0 - stores quotient from integer division
-Then, set z equal to 0
-Then, set a equal to 0
-Second, create a while loop that loops as long as x is not 0
-Then, store quotient into y
-Then, multiply y by 10
-Then, get the last number by subtracting original from the value in z
-Then, show the last number
-Third, set x equal to the value in y
-Lastly, signal end of loop
+First, set x equal to 50313\
+Then, set y equal to 0 - stores quotient from integer division\
+Then, set z equal to 0\
+Then, set a equal to 0\
+Second, create a while loop that loops as long as x is not 0\
+Then, store quotient into y\
+Then, multiply y by 10\
+Then, get the last number by subtracting original from the value in z\
+Then, show the last number\
+Third, set x equal to the value in y\
+Lastly, signal end of loop\
 **Note: ** end checks if x is 0 but the when does not check x
 
 
@@ -420,5 +420,3 @@ All rights are given to anyone who is going to use this project for their person
 
 ## Contact ##
 LinkedIn - [My LinkedIn](https://www.linkedin.com/in/imboowa/)
-
-Email - emboowae@gmail.com
