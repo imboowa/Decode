@@ -44,13 +44,13 @@ int checkFile(char *fileName, char *realExtension)
     return ERROR;
 }
 ```
-**1. strtok**
+**1. strtok**\
 When passing the `fileName` to `strtok`, `strtok` overwrites the `char *` and inserts `NULL` at locations of the `.` in this case. To avoid this, I stored the file name in a temporary buffer and used the original but later I can use the file name in the temporary buffer.
 
-**2. strlen**
+**2. strlen**\
 Comparing buffers without visible length is bad practice. In order to prevent this in my code, I decided to check if both `realExtension` and `extension` have the same length.
 
-**3. strcmp**
+**3. strcmp**\
 One may say that these buffers do not have `\0` but remember that when `strtok` is called it returned a value into `extension` that is NULL terminated. This NULL terminator was placed during `strtok` finding occurrences of `.` in filename and replacing them with `\0`.
 
 
@@ -69,7 +69,7 @@ for (int i = 0; i < (*varsCount); i++)
     }
 }
 ```
-**1. Looking For tempVar1 And tempVar2 In Our Array**
+**1. Looking For tempVar1 And tempVar2 In Our Array**\
 When looping in the predefined array that only allows 10 variables. What if the if statements were as follows; an if statement and then an else if statement.
 ```
 set x 0
@@ -95,7 +95,7 @@ else
     printf("Varaible Error: Variable Array Full\n");
 }
 ```
-**1. Index Must Match Array Bounds**
+**1. Index Must Match Array Bounds**\
 `*varsCount` cannot be controlled but can be managed by always checking if it is within the bounds of the `vars` so that no out of bounds happen, I copy to the array in valid indexes.
 
 **main.c**
@@ -112,7 +112,7 @@ while (execCounter >= 0 && execCounter < sizeof(codeLines)/sizeof(codeLines[0]) 
 }
 ```
 
-**1. Short Circuit**
+**1. Short Circuit**\
 First in the `while` loop condition, we check if we are greater than or equal to 0, then check if we are less than 100 lines of code (our limit), and lastly we check if the current index is out full stop. Imagine we had not respected the order and checked if the current index we are on is our full stop and `execCounter` is 100, right there we are out of bounds hence order matters.
 
 ## Usage ##
@@ -127,14 +127,14 @@ sub x x 1
 end
 printr y
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 5\
 Then, set y equal to 0 - this is our sum variable\
 Second, create a while loop that loops as long as x is not 0\
 Third, add whatever is in x at the iteration to y\
 Fourth, decrement x by 1\
 Lastly, signal end of loop and show answer\
-**Note: ** end checks if x is 0 but the when does not check x\
+**Note:** end checks if x is 0 but the when does not check x
 
 2. `Multiplication using only addition`
 ```
@@ -147,7 +147,7 @@ sub y y 1
 end
 printr z
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 4\
 Then, set y equal to 3\
 Then, set z equal to 0 - this is our sum variable\
@@ -155,7 +155,7 @@ Second, create a while loop that loops as long as y is not 0\
 Third, on every iteration add the multiplicant to z in order to accumulate\
 Fourth, decrement the multiplier by 1\
 Lastly, signal end of loop and show answer\
-**Note: ** end checks if y is 0 but the when does not check y\
+**Note:** end checks if y is 0 but the when does not check y
 
 3. `Factorial of a number`
 ```
@@ -167,14 +167,14 @@ sub x x 1
 end
 printr e
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 7\
 Then, set e equal to 1\
 Second, create a while loop to loop as long as x is not 0\
 Third, multiply the value in e by the value in x and store that into e\
 Fourth, decrement x by 1\
 Lastly, signal end of loop and show answer\
-**Note: ** end checks if x is 0 but the when does not check x\
+**Note:** end checks if x is 0 but the when does not check x
 
 4. `Count even and odd numbers between 1 and n`
 ```
@@ -203,7 +203,7 @@ end
 printr e
 printr o
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set e equal to 0\
 Then, set o equal to 0\
 Then, set x equal to 5\
@@ -218,7 +218,7 @@ Third, if remainder is 1 that is an odd number hence increment the odd counter `
 Fourth, if remainder is 0 that is an even number hence increment the even counter `e` by 1\
 Fifth, decrement x by 1\
 Lastly, signal end of loop and show results\
-**Note: ** end checks if x is 0 but the when does not check x
+**Note:** end checks if x is 0 but the when does not check x
 
 5. `Sum of all even numbers between X and Y`
 ```
@@ -241,7 +241,7 @@ sub y y 1
 end
 printr a
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 1\
 Then, set y equal to 10\
 Then, set z equal to 0\
@@ -257,7 +257,7 @@ Third, if remainder is 0 that is an even number hence increment the even counter
 Fourth, decrement y by 1\
 Fifth, decrement y by 1\
 Lastly, signal end of loop and show results\
-**Note: ** end checks if z is 0 but the when does not check z
+**Note:** end checks if z is 0 but the when does not check z
 
 6. `Print a range`
 ```
@@ -267,13 +267,13 @@ printr x
 sub x x 1
 end
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 3\
 Second, create a while loop that loops as long as x is not 0\
 Then, show result\
 Then, decrement x by 1\
 Lastly, signal end of loop\
-**Note: ** end checks if z is 0 but the when does not check z
+**Note:** end checks if z is 0 but the when does not check z
 
 
 tryguest.ggh
@@ -288,7 +288,7 @@ sub x x y
 end
 printr z
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 90\
 Then, set y equal to 10\
 Then, set z equal to 0 - increments to show the divisions\
@@ -296,7 +296,7 @@ Second, create a while loop that loops as long as x is not 0\
 Third, add 1 to the value in z\
 Fourth, decrement x by 1\
 Lastly, signal end of loop and show results\
-**Note: ** end checks if x is 0 but the when does not check x
+**Note:** end checks if x is 0 but the when does not check x
 
 2. `Exponentiation using loops`
 ```
@@ -309,7 +309,7 @@ sub y y 1
 end
 printr z
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 8\
 Then, set y equal to 2\
 Then, set z equal to 1 - accumulates the multiplication as many times as the power in this case the value of y\
@@ -317,7 +317,7 @@ Second, create a while loop that loops as long as y is not 0\
 Third, multiply the value in z by the value in x\
 Fourth, decrement y by 1\
 Lastly, signal end of loop and show results\
-**Note: ** end checks if y is 0 but the when does not check y
+**Note:** end checks if y is 0 but the when does not check y
 
 3. `Fibonacci`
 ```
@@ -333,7 +333,7 @@ printr x
 sub a a 1
 end
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 0 - the first number\
 Then, set y equal to 1 - the second number\
 Then, set z equal to 0 - contains the sum of x and y\
@@ -343,7 +343,7 @@ Third, fill z with the sum of x and y\
 Fourth, set x to be y\
 Fifth, set y to be z\
 Lastly, show results and signal end of loop\
-**Note: ** end checks if a is 0 but the when does not check a
+**Note:** end checks if a is 0 but the when does not check a
 
 4. `Decimal to binary LSB to MSB`
 ```
@@ -359,7 +359,7 @@ printr a
 set x y
 end
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 2 - the number\
 Then, set y equal to 0 - stores quotient\
 Then, set z equal to 0\
@@ -371,7 +371,7 @@ Then, store the remainder into a\
 Then, show the remainder\
 Then, set x equal to y\
 Lastly, signal end of loop\
-**Note: ** end checks if x is 0 but the when does not check x
+**Note:** end checks if x is 0 but the when does not check x
 
 5. `Reverse a number`
 ```
@@ -387,7 +387,7 @@ printr a
 set x y
 end
 ```
-**Walkthrough**
+**Walkthrough**\
 First, set x equal to 50313\
 Then, set y equal to 0 - stores quotient from integer division\
 Then, set z equal to 0\
@@ -399,7 +399,7 @@ Then, get the last number by subtracting original from the value in z\
 Then, show the last number\
 Third, set x equal to the value in y\
 Lastly, signal end of loop\
-**Note: ** end checks if x is 0 but the when does not check x
+**Note:** end checks if x is 0 but the when does not check x
 
 
 ## Tech Stack ##
