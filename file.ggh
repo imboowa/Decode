@@ -1,0 +1,6 @@
+// Create A Variable
+set x 1
+// Add 2 To That Variable
+add x x 2
+// Show Output
+printr x

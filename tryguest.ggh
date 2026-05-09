@@ -22,12 +22,16 @@
 // set x 0
 // set y 1
 // set z 0
-// set a 10
+// set a 11
 // when a
 // add z x y
+// printr x
+// if a 1
+// stop
+// done
+// printr ,
 // set x y
 // set y z
-// printr x
 // sub a a 1
 // end
 

@@ -1,7 +1,15 @@
+set x 1
+when x
+end
+
 // Sum of first N numbers
 // set x 5
 // set y 0
 // when x
+// if x 0
+// printr y
+// stop
+// done
 // add y y x
 // sub x x 1
 // end
@@ -76,5 +84,6 @@
 // set x 3
 // when x
 // printr x
+// printr
 // sub x x 1
 // end

@@ -45,7 +45,7 @@
 // printr
 
 // Showing A Triangle
-// set x 17
+// set x 5
 // set y x
 // when x
 // printr *
@@ -57,4 +57,4 @@
 // if y 0
 // stop
 // done
-// branch 3
+// branch 49
