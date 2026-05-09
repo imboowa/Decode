@@ -1,7 +1,7 @@
 import threading
 from customtkinter import *
 from interface.settings import *
-from Decode.decode import *
+from DecodeLanguage.decode import *
 
 
 class Code_Interface:
