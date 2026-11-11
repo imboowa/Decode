@@ -405,7 +405,7 @@ Lastly, signal end of loop\
 
 ## Tech Stack ##
 ```
-Xcode - Code Editor
+Apple's Xcode - Code Editor
 ChatGPT - Code Analysis
 Google's AI Mode - AI Assistant
 Google - Research
