@@ -1,6 +1,6 @@
 Decode Language Rules and Structure
 
-1. printr (for printing strings) e.g printr "Hello World"
+1. printr (for printing strings, spaces, and newlines) e.g printr "Hello World"
 2. comments e.g // this is a comment
 3. set (for setting variables to values, also updates variables) e.g set x 4
 4. add (for adding to variables, also increments) e.g add x 3 4, add x x 1
@@ -10,7 +10,7 @@ Decode Language Rules and Structure
 8. when (for loops and while loops) e.g when x means while x is not 0
 9. if (if statements) e.g if x 6 means if x is equal to whatever the next value or variable is
 10. Syntax handling e.g error messages
-11. branch (for manual jumping) e.g branch 2, jumps to line of code number 2
+11. branch (for manual jumping) e.g branch 2, jumps to line of code number 2. Could use labels for convenience like branch label_1
 12. stop (stops code) e.g stop, stops code from running
 
 Note: Language is verbose, requires more of logic, thinking, reasoning, and arithmetic
@@ -19,6 +19,8 @@ Rules of language
 1. A single line of code should be 256 characters long - (char = 1 byte)
 2. Can run only 100 lines of code
 3. Anything from code results will always be 256 characters in length or less.
+4. In case the value to "when" is not a valid index, "when" goes through the code once.
+5. To print a space, just put two spaces after printr.
 
 Challenges
 1. Implementing greater than or less than is painful.
@@ -29,4 +31,5 @@ Challenges
 6. Exponentiation has issues with powers greater than 10. Depends on computer.
 7. Generally cannot work with huge numbers.
 8. If arguments are given more than expected, they are ignored.
+a. Like comments in front of code are ignored except in front of printr (they are printed on screen)
 9. If there is a character in an integer, that is an argument error.

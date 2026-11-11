@@ -92,7 +92,7 @@ if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
 }
 else
 {
-    printf("Varaible Error: Variable Array Full\n");
+    printf("Variable Error: Variable Array Full\n");
 }
 ```
 **1. Index Must Match Array Bounds**\
@@ -152,7 +152,7 @@ First, set x equal to 4\
 Then, set y equal to 3\
 Then, set z equal to 0 - this is our sum variable\
 Second, create a while loop that loops as long as y is not 0\
-Third, on every iteration add the multiplicant to z in order to accumulate\
+Third, on every iteration add the multiplicand to z in order to accumulate\
 Fourth, decrement the multiplier by 1\
 Lastly, signal end of loop and show answer\
 **Note:** end checks if y is 0 but the when does not check y
@@ -251,7 +251,7 @@ Then, set c equal to 0 - stores result of b multiplied by 2\
 Then, set d equal to 0 - stores the remainder\
 Second, create a while loop that runs as long as z is not 0\
 Then, divide current y by 2\
-Then, multipy b by 2\
+Then, multiply b by 2\
 Then, subtract y from b to get the remainder\
 Third, if remainder is 0 that is an even number hence increment the even counter `a` by y (that very even number)\
 Fourth, decrement y by 1\
@@ -410,7 +410,7 @@ ChatGPT - AI Assistant
 
 ## Contributing ##
 ```
-If you are interested in making this Lnaguage, Decode, a real mathematical language for the future, please feel at ease to reach out in order to contribute to the project.
+If you are interested in making this Language, Decode, a real mathematical language for the future, please feel at ease to reach out in order to contribute to the project.
 ```
 
 ## Copyright ##

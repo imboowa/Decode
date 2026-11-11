@@ -53,8 +53,13 @@ int main (int argc, char *argv[])
     // Struct To Store VARIABLE_ARRAY_LENGTH Variables
     struct Variable vars[VARIABLE_ARRAY_LENGTH];
     memset(&vars, 0, sizeof(vars));
+    // Struct To Store LABELS_ARRAY_LENGTH Labels
+    struct Labels labels[LABELS_ARRAY_LENGTH];
+    memset(&labels, 0, sizeof(labels));
     // Counter Of Numbers Of Variables In Array
     int varsCount = 0;
+    // Counts How Many Labels Exist
+    int labelsCount = 0;
     
     // Stores Only 100 Lines Of Code
     char codeLines[100][BUFFER_LENGTH];
@@ -110,7 +115,7 @@ int main (int argc, char *argv[])
         memset(lineCopy, 0, sizeof(lineCopy));
         strncpy(lineCopy, codeLines[execCounter], sizeof(lineCopy) - 1);
         lineCopy[sizeof(lineCopy) - 1] = '\0';
-        executeLine(lineCopy, vars, &varsCount, &execCounter, &tempIndex, tempValue, &IF_FLAG, &error_flagger, &codeSpan);
+        executeLine(lineCopy, vars, labels, &varsCount, &labelsCount, &execCounter, &tempIndex, tempValue, &IF_FLAG, &error_flagger, &codeSpan);
         execCounter++;
     }
     

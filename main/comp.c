@@ -45,7 +45,7 @@ void mathOperations(char *operation, struct Variable *vars, int *varsCount, char
 {
     // Temporary Buffer For Storage Of Answer
     char buffer[BUFFER_LENGTH];
-    memset(buffer, 0, sizeof(buffer));
+    memset(buffer, 0, BUFFER_LENGTH);
     
     char *var1 = tempVar1;
     char *var2 = tempVar2;
@@ -130,17 +130,18 @@ void mathOperations(char *operation, struct Variable *vars, int *varsCount, char
         result = atoi(var1) / atoi(var2);
     }
     // snprintf Variable To A Char Buffer
-    snprintf(buffer, sizeof(buffer), "%d", result);
+    snprintf(buffer, BUFFER_LENGTH, "%d", result);
     // Checking Bounds
     if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
     {
         // Check If Destination Is A Variable
         for (int i = 0; i < (*varsCount); i++)
         {
-            if (strncmp(vars[i].name, tempResult, sizeof(vars[i].name)) == 0)
+            if (strncmp(vars[i].name, tempResult, BUFFER_LENGTH) == 0)
             {
-                strncpy(vars[i].value, buffer, sizeof(vars[i].value) - 1);
-                vars[i].value[sizeof(vars[i].value) - 1] = '\0';
+                strncpy(vars[i].value, buffer, BUFFER_LENGTH - 1);
+                // Explicitly Add Null Terminator
+                vars[i].value[BUFFER_LENGTH - 1] = '\0';
                 return;
             }
         }
@@ -156,15 +157,15 @@ void mathOperations(char *operation, struct Variable *vars, int *varsCount, char
     if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
     {
         // Add The Variable
-        strncpy(vars[(*varsCount)].name, tempResult, sizeof(vars[(*varsCount)].name) - 1);
-        strncpy(vars[(*varsCount)].value, buffer, sizeof(vars[(*varsCount)].value) - 1);
-        vars[(*varsCount)].name[sizeof(vars[(*varsCount)].name) - 1] = '\0';
-        vars[(*varsCount)].value[sizeof(vars[(*varsCount)].value) - 1] = '\0';
+        strncpy(vars[(*varsCount)].name, tempResult, BUFFER_LENGTH - 1);
+        strncpy(vars[(*varsCount)].value, buffer, BUFFER_LENGTH - 1);
+        vars[(*varsCount)].name[BUFFER_LENGTH - 1] = '\0';
+        vars[(*varsCount)].value[BUFFER_LENGTH - 1] = '\0';
         (*varsCount)++;
     }
     else
     {
-        //printf("Varaible Error: Variable Array Full\n");
+        //printf("Variable Error: Variable Array Full\n");
         error_flagger->VARIABLE_ARRAY_FULL = 1;
         error_flagger->NO_ERRORS = 1;
     }
@@ -178,29 +179,29 @@ void setVariable(struct Variable *vars, int *varsCount, char *tempArg1, char *te
         // Is This Variable Already Existing
         for (int i = 0; i < (*varsCount); i++)
         {
-            if (strncmp(vars[i].name, tempArg1, sizeof(vars[i].name)) == 0)
+            if (strncmp(vars[i].name, tempArg1, BUFFER_LENGTH) == 0)
             {
-                // Is Value A Variable Too
+                // Is "Value" A Variable Too
                 for (int j = 0; j < (*varsCount); j++)
                 {
-                    if (strncmp(vars[j].name, tempArg2, sizeof(vars[j].name)) == 0)
+                    if (strncmp(vars[j].name, tempArg2, BUFFER_LENGTH) == 0)
                     {
                         // Update Variable To Variable Value
-                        strncpy(vars[i].value, vars[j].value, sizeof(vars[i].value) - 1);
-                        vars[i].value[sizeof(vars[i].value) - 1] = '\0';
+                        strncpy(vars[i].value, vars[j].value, BUFFER_LENGTH - 1);
+                        vars[i].value[BUFFER_LENGTH - 1] = '\0';
                         return;
                     }
                 }
                 // Update That Variable To The New Value
-                strncpy(vars[i].value, tempArg2, sizeof(vars[i].value) - 1);
-                vars[i].value[sizeof(vars[i].value) - 1] = '\0';
+                strncpy(vars[i].value, tempArg2, BUFFER_LENGTH - 1);
+                vars[i].value[BUFFER_LENGTH - 1] = '\0';
                 return;
             }
         }
         // Is Value A Variable
         for (int i = 0; i < (*varsCount); i++)
         {
-            if (strncmp(vars[i].name, tempArg2, sizeof(vars[i].name)) == 0)
+            if (strncmp(vars[i].name, tempArg2, BUFFER_LENGTH) == 0)
             {
                 // Set tempArg2 To Carry The Value In That Value Variable
                 tempArg2 = vars[i].value;
@@ -217,11 +218,11 @@ void setVariable(struct Variable *vars, int *varsCount, char *tempArg1, char *te
     }
     if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
     {
-        // All Set Then Add The Variable And Value To vars
-        strncpy(vars[(*varsCount)].name, tempArg1, sizeof(vars[(*varsCount)].name) - 1);
-        strncpy(vars[(*varsCount)].value, tempArg2, sizeof(vars[(*varsCount)].value) - 1);
-        vars[(*varsCount)].name[sizeof(vars[(*varsCount)].name) - 1] = '\0';
-        vars[(*varsCount)].value[sizeof(vars[(*varsCount)].value) - 1] = '\0';
+        // All Set - Add The Variable And Value To vars
+        strncpy(vars[(*varsCount)].name, tempArg1, BUFFER_LENGTH - 1);
+        strncpy(vars[(*varsCount)].value, tempArg2, BUFFER_LENGTH - 1);
+        vars[(*varsCount)].name[BUFFER_LENGTH - 1] = '\0';
+        vars[(*varsCount)].value[BUFFER_LENGTH - 1] = '\0';
         (*varsCount)++;
     }
     else
@@ -237,7 +238,7 @@ void printr(struct Variable *vars, int *varsCount, char *tempArg1, struct ErrorF
     // Bounds Checking
     if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
     {
-        // Is printr_arg A Variable
+        // Is tempArg1 A Variable
         for (int i = 0; i < (*varsCount); i++)
         {
             if (strcmp(vars[i].name, tempArg1) == 0)
@@ -271,14 +272,14 @@ int is_whole_string_integer(char *string)
         // Number Might Be Unsigned
         if (i == 0 && string[i] == '+')
             continue;
-        // Number Might Be A usual Integer
+        // Number Might Be A Usual Integer
         if (!isdigit(string[i]))
             return -1;
     }
     return 0;
 }
 
-void executeLine(char *content, struct Variable *vars, int *varsCount, int *execCounter, int *tempIndex, char *tempValue, int *IF_FLAG, struct ErrorFlags *error_flagger, unsigned int *codeSpan)
+void executeLine(char *content, struct Variable *vars, struct Labels *labels, int *varsCount, int *labelsCount, int *execCounter, int *tempIndex, char *tempValue, int *IF_FLAG, struct ErrorFlags *error_flagger, unsigned int *codeSpan)
 {
     // Error Checking
     if (content == NULL || strlen(content) == 0)
@@ -287,7 +288,7 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
     }
     // Remove New Line
     content[strcspn(content, "\n")] = '\0';
-    // Get The Code
+    // Get The Code - First Time strtok Is Called So We Get The Command
     char *tempCommand = strtok(content, " ");
     if (tempCommand == NULL)
     {
@@ -314,6 +315,7 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
     // Initializing Or Setting Variables
     else if (strcmp(tempCommand, "set") == 0 && (*IF_FLAG) == 1)
     {
+        // Second Time strtok Is Called - We Get The Arguments 1 and 2
         char *tempArg1 = strtok(NULL, " ");
         char *tempArg2 = strtok(NULL, " ");
         if (tempArg1 == NULL)
@@ -340,6 +342,7 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
     }
     else if (strcmp(tempCommand, "add") == 0 && (*IF_FLAG) == 1)
     {
+        // Check For Error(s) In Inputs
         char *tempResultVar = strtok(NULL, " ");
         char *tempNum1 = strtok(NULL, " ");
         char *tempNum2 = strtok(NULL, " ");
@@ -397,7 +400,7 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
     }
     else if (strcmp(tempCommand, "mul") == 0 && (*IF_FLAG) == 1)
     {
-        // Check For Errors
+        // Check For Error(s) In Inputs
         char *tempResultVar = strtok(NULL, " ");
         char *tempVar1 = strtok(NULL, " ");
         char *tempVar2 = strtok(NULL, " ");
@@ -546,6 +549,7 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
                 {
                     tempConditionVar1 = vars[i].value;
                 }
+                // Checking Twice Because tempConditionVar1 Could Be The Same With tempConditionVar2
                 // Is tempConditionVar2 A Variable
                 if (strcmp(vars[i].name, tempConditionVar2) == 0)
                 {
@@ -588,11 +592,62 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
             error_flagger->NO_ERRORS = 1;
             return;
         }
-        int tempCounter = atoi(tempUserCounter);
-        // Check If It Is Safe To Jump To Requested Part Of Code
-        if (tempCounter >= 1 && tempCounter < (*codeSpan))
+        
+        char *tempCounter1 = NULL;
+        
+        // Check If tempUserCounter Is A Variable
+        if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
         {
-            (*execCounter) = tempCounter - 2;
+            for (int i = 0; i < (*varsCount); i++)
+            {
+                if (strcmp(vars[i].name, tempUserCounter) == 0)
+                {
+                    tempCounter1 = vars[i].value;
+                    int tempCounter2 = atoi(tempCounter1);
+                    // Check If It Is Safe To Jump To Requested Part Of Code
+                    if (tempCounter2 >= 1 && tempCounter2 < (*codeSpan))
+                    {
+                        (*execCounter) = tempCounter2 - 2;
+                        return;
+                    }
+                    else
+                    {
+                        error_flagger->OUT_OF_BOUNDS = 1;
+                        error_flagger->NO_ERRORS = 1;
+                        return;
+                    }
+                }
+            }
+        }
+        // Check If tempUserCounter Is A Label
+        if ((*labelsCount) >= 0 && (*labelsCount) < LABELS_ARRAY_LENGTH)
+        {
+            for (int i = 0; i < (*labelsCount); i++)
+            {
+                if (strcmp(labels[i].name, tempUserCounter) == 0)
+                {
+                    int tempLabelIndex = labels[i].index + 1;
+                    // Check If It Is Safe To Jump To Requested Part Of Code
+                    if (tempLabelIndex >= 1 && tempLabelIndex < (*codeSpan))
+                    {
+                        (*execCounter) = tempLabelIndex - 2;
+                        return;
+                    }
+                    else
+                    {
+                        error_flagger->OUT_OF_BOUNDS = 1;
+                        error_flagger->NO_ERRORS = 1;
+                        return;
+                    }
+                }
+            }
+        }
+        // Is It A Plain Index Like A Number - Worked
+        int tempCounter3 = atoi(tempUserCounter) + 1;
+        // Check If It Is Safe To Jump To Requested Part Of Code
+        if (tempCounter3 >= 1 && tempCounter3 < (*codeSpan))
+        {
+            (*execCounter) = tempCounter3 - 2;
         }
         else
         {
@@ -608,6 +663,43 @@ void executeLine(char *content, struct Variable *vars, int *varsCount, int *exec
     }
     else
     {
+        // Before Error - Check If This Is A Label
+        if (tempCommand[strlen(tempCommand) - 1] == ':')
+        {
+            char tempBuffer1[BUFFER_LENGTH];
+            memset(tempBuffer1, 0, BUFFER_LENGTH);
+            for (int i = 0; BUFFER_LENGTH - 1; i++)
+            {
+                if (tempCommand[i] == ':')
+                {
+                    break;
+                }
+                tempBuffer1[i] = tempCommand[i];
+            }
+            // Does Label Already Exist - Do Not Create A New Variable If Label Already Exists - Skip It
+            if ((*labelsCount) >= 0 && (*labelsCount) < LABELS_ARRAY_LENGTH)
+            {
+                // Does Label Already Exist - Do Not Create A New Variable If Label Already Exists - Skip It
+                for (int i = 0; i < (*labelsCount); i++)
+                {
+                    if (strcmp(labels[i].name, tempBuffer1) == 0)
+                    {
+                        return;
+                    }
+                }
+                // Create The New Label - Must Not Exist
+                strncpy(labels[(*labelsCount)].name, tempBuffer1, BUFFER_LENGTH);
+                labels[(*labelsCount)].index = (*execCounter);
+                (*labelsCount)++;
+            }
+            else
+            {
+                error_flagger->OUT_OF_BOUNDS = 1;
+                error_flagger->NO_ERRORS = 1;
+            }
+            return;
+        }
+
         // If That Code Could Have Been Executed
         if ((*IF_FLAG) == 1)
         {

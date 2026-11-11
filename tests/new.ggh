@@ -1,0 +1,29 @@
+set x 2
+mul x 3 100
+printr x
+printr
+printr
+
+set m 11
+
+set s 3
+
+label_1:
+
+if s 0
+branch label_2
+done
+
+label_2:
+if s 0
+printr
+stop
+done
+
+printr s
+printr  
+sub s s 1
+
+branch label_1
+// branch m
+// branch 11
