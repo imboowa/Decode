@@ -1,7 +1,7 @@
-## Decode: Decode ##
+## Decode
 This is a project that I took up after failing to understand ARM Assembly from a course at Low Level Academy. This ARM Assembly course gave me the true knowledge of how computers work under the hood but I did not fully understand well and still went on to do this project in order to see what to make of my small knowledge. I also had Python and C knowledge so I did a project in Python and then took C to make a simple semi-programming language that looked like Assembly. I wanted to add something to my Python project and unite my new Assembly skills with C and came up with this idea.
 
-## Dive Into ##
+## Dive Into
 **About**
 
 Decode is a semi-programming language that I have created and tested on simple mathematical algorithms like fibonacci, exponentiation, sum of even number between X and Y, [DNAGenre](https://github.com/imboowa/DNAGenre) and many more. Basically, I took my C knowledge from Low Level Academy course and my simple understanding of ARM Assembly and combined those skills and decided to make a simple programming language that looks somehow like ARM Assembly.
@@ -84,10 +84,10 @@ The loop will find `x` in its `vars` and store `x` value in tempVar1. Since we h
 if ((*varsCount) >= 0 && (*varsCount) < VARIABLE_ARRAY_LENGTH)
 {
     // Add The Variable
-    strncpy(vars[(*varsCount)].name, tempResult, sizeof(vars[(*varsCount)].name) - 1);
-    strncpy(vars[(*varsCount)].value, buffer, sizeof(vars[(*varsCount)].value) - 1);
-    vars[(*varsCount)].name[sizeof(vars[(*varsCount)].name) - 1] = '\0';
-    vars[(*varsCount)].value[sizeof(vars[(*varsCount)].value) - 1] = '\0';
+    strncpy(vars[(*varsCount)].name, tempResult, BUFFER_LENGTH - 1);
+    strncpy(vars[(*varsCount)].value, buffer, BUFFER_LENGTH - 1);
+    vars[(*varsCount)].name[BUFFER_LENGTH - 1] = '\0';
+    vars[(*varsCount)].value[BUFFER_LENGTH - 1] = '\0';
     (*varsCount)++;
 }
 else
@@ -104,9 +104,9 @@ while (execCounter >= 0 && execCounter < sizeof(codeLines)/sizeof(codeLines[0]) 
 {
     // Buffer To Store A Temporary Copy Of Current Line Of Code, Can Be Mutated
     char lineCopy[BUFFER_LENGTH];
-    memset(lineCopy, 0, sizeof(lineCopy));
+    memset(lineCopy, 0, BUFFER_LENGTH);
     strncpy(lineCopy, codeLines[execCounter], sizeof(lineCopy) - 1);
-    lineCopy[sizeof(lineCopy) - 1] = '\0';
+    lineCopy[BUFFER_LENGTH - 1] = '\0';
     executeLine(lineCopy, vars, &varsCount, &execCounter, &tempIndex, tempValue, &IF_FLAG);
     execCounter++;
 }
@@ -401,11 +401,14 @@ Third, set x equal to the value in y\
 Lastly, signal end of loop\
 **Note:** end checks if x is 0 but the when does not check x
 
+### Note: Check the tests folder (directory) for more tests.
 
 ## Tech Stack ##
 ```
 Xcode - Code Editor
-ChatGPT - AI Assistant
+ChatGPT - Code Analysis
+Google's AI Mode - AI Assistant
+Google - Research
 ```
 
 ## Contributing ##
